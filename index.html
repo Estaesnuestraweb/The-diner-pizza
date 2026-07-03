@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Diner Pizza — Pizza napolitana · El Encino, Monterrey</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Caveat:wght@600;700&family=Work+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --char:#1C1712;
+    --char-2:#26201A;
+    --char-3:#332A20;
+    --crema:#FBF3E6;
+    --crema-2:#F2E4CB;
+    --papel:#FFFCF6;
+    --tinta:#241B12;
+    --marinara:#B3272D;
+    --marinara-luz:#D4453A;
+    --basil:#4C7A4C;
+    --parmesan:#E8B84B;
+    --humo:#8A7A68;
+    --linea:#E6D6B0;
+    --maxw:1180px;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  button{font-family:inherit;background:none;border:none;cursor:pointer;color:inherit;font-size:inherit;text-align:inherit;}
+
+  body{
+    font-family:'Work Sans',sans-serif;
+    background:var(--crema);
+    color:var(--tinta);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  h1,h2,h3,.display{
+    font-family:'Anton',sans-serif;
+    font-weight:400;
+    text-transform:uppercase;
+    line-height:0.98;
+    letter-spacing:0.005em;
+  }
+  .script{font-family:'Caveat',cursive;text-transform:none;letter-spacing:0;font-weight:700;}
+
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;display:block;}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;}
+
+  .eyebrow{
+    font-size:12.5px;letter-spacing:0.16em;text-transform:uppercase;color:var(--marinara);
+    display:flex;align-items:center;gap:10px;margin-bottom:16px;font-weight:600;
+  }
+  .eyebrow::before{content:"";width:24px;height:1px;background:var(--marinara);display:inline-block;}
+
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;padding:15px 28px;border-radius:999px;
+    font-size:14.5px;font-weight:700;border:1.5px solid transparent;cursor:pointer;
+    text-transform:uppercase;letter-spacing:0.03em;
+    transition:transform .18s ease, background .18s ease, color .18s ease, border-color .18s ease;
+  }
+  .btn:focus-visible{outline:3px solid var(--parmesan);outline-offset:3px;}
+  .btn-primary{background:var(--marinara);color:var(--papel);}
+  .btn-primary:hover{background:var(--marinara-luz);transform:translateY(-2px);}
+  .btn-ghost{background:transparent;color:var(--papel);border-color:rgba(255,252,246,0.45);}
+  .btn-ghost:hover{border-color:var(--papel);transform:translateY(-2px);}
+
+  /* ---------- CHECKER TEXTURE (signature) ---------- */
+  .checker{
+    background-image:
+      linear-gradient(45deg, rgba(255,252,246,0.045) 25%, transparent 25%, transparent 75%, rgba(255,252,246,0.045) 75%),
+      linear-gradient(45deg, rgba(255,252,246,0.045) 25%, transparent 25%, transparent 75%, rgba(255,252,246,0.045) 75%);
+    background-size:44px 44px;
+    background-position:0 0, 22px 22px;
+  }
+
+  /* ---------- NAV ---------- */
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    background:rgba(28,23,18,0.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid rgba(255,252,246,0.1);
+  }
+  nav.wrap{display:flex;align-items:center;justify-content:space-between;height:76px;}
+  .logo{font-family:'Anton',sans-serif;color:var(--papel);font-size:21px;display:flex;align-items:baseline;gap:8px;}
+  .logo span{color:var(--parmesan);font-family:'Caveat',cursive;font-size:20px;font-weight:700;text-transform:none;}
+  .navlinks{display:none;gap:30px;font-size:13.5px;font-weight:500;}
+  @media(min-width:900px){.navlinks{display:flex;}}
+  .navlinks :is(a,button){color:rgba(251,243,230,0.75);transition:color .15s ease;padding:4px 0;position:relative;}
+  .navlinks :is(a,button):hover, .navlinks :is(a,button):focus-visible{color:var(--papel);}
+  .navlinks :is(a,button)::after{content:"";position:absolute;left:0;bottom:-4px;height:1.5px;width:0;background:var(--parmesan);transition:width .2s ease;}
+  .navlinks :is(a,button):hover::after{width:100%;}
+  .nav-cta{display:none;}
+  @media(min-width:760px){.nav-cta{display:inline-flex;padding:11px 22px;font-size:13px;}}
+
+  .nav-toggle{display:flex;flex-direction:column;justify-content:center;gap:5px;width:40px;height:40px;border:1px solid rgba(251,243,230,0.3);border-radius:50%;padding:0;}
+  @media(min-width:900px){.nav-toggle{display:none;}}
+  .nav-toggle span{display:block;height:1.5px;width:16px;margin:0 auto;background:var(--papel);transition:transform .25s ease, opacity .25s ease;}
+  .nav-toggle[aria-expanded="true"] span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+  .nav-toggle[aria-expanded="true"] span:nth-child(2){opacity:0;}
+  .nav-toggle[aria-expanded="true"] span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
+  .nav-toggle:focus-visible{outline:2px solid var(--parmesan);outline-offset:2px;}
+
+  .mobile-panel{
+    position:fixed;top:76px;left:0;right:0;background:var(--char-2);
+    border-bottom:1px solid rgba(251,243,230,0.12);
+    display:flex;flex-direction:column;padding:8px 24px 24px;
+    transform:translateY(-8px);opacity:0;pointer-events:none;
+    transition:opacity .2s ease, transform .2s ease;z-index:49;
+  }
+  .mobile-panel.open{opacity:1;transform:none;pointer-events:auto;}
+  @media(min-width:900px){.mobile-panel{display:none;}}
+  .mobile-panel :is(a,button){font-size:14px;font-weight:500;color:rgba(251,243,230,0.8);padding:14px 0;border-bottom:1px solid rgba(251,243,230,0.1);display:block;width:100%;}
+  .mobile-panel :is(a,button):hover, .mobile-panel :is(a,button):focus-visible{color:var(--papel);}
+  .mobile-panel .btn{margin-top:18px;align-self:flex-start;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:center;
+    background:
+      radial-gradient(ellipse 70% 55% at 85% 8%, rgba(179,39,45,0.34), transparent 60%),
+      radial-gradient(ellipse 60% 50% at 8% 92%, rgba(76,122,76,0.22), transparent 60%),
+      var(--char);
+    color:var(--papel);overflow:hidden;padding-top:76px;
+  }
+  .hero-inner{position:relative;z-index:2;padding:60px 0 76px;}
+  .hero-tag{
+    font-size:12.5px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:var(--parmesan);
+    margin-bottom:22px;display:inline-block;border:1px solid rgba(232,184,74,0.5);padding:7px 16px;border-radius:999px;
+  }
+  .hero h1{font-size:clamp(42px,8.6vw,98px);color:var(--papel);text-shadow:0 0 60px rgba(179,39,45,0.35);}
+  .hero h1 em{font-style:normal;color:var(--marinara-luz);}
+  .hero p.lede{max-width:540px;margin-top:26px;font-size:18.5px;color:rgba(251,243,230,0.78);}
+  .hero-ctas{display:flex;gap:16px;flex-wrap:wrap;margin-top:38px;}
+
+  .hero-stats{position:relative;z-index:2;border-top:1px solid rgba(251,243,230,0.14);padding:24px 0;}
+  .hero-stats .wrap{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;}
+  @media(min-width:700px){.hero-stats .wrap{grid-template-columns:repeat(4,1fr);}}
+  .stat b{display:block;font-family:'Anton',sans-serif;font-size:30px;color:var(--parmesan);}
+  .stat span{font-size:12px;letter-spacing:0.04em;color:rgba(251,243,230,0.65);}
+
+  /* ---------- SECTION GENERIC ---------- */
+  section{padding:100px 0;scroll-margin-top:84px;}
+  .section-head{max-width:620px;margin-bottom:56px;}
+  .section-head h2{font-size:clamp(32px,4.6vw,50px);color:var(--tinta);}
+  .section-head p{margin-top:16px;font-size:17px;color:var(--humo);}
+
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1;transform:none;}
+  @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none;}html{scroll-behavior:auto;}}
+
+  /* ---------- FORTALEZAS ---------- */
+  .fortalezas-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1px;background:var(--linea);border:1px solid var(--linea);}
+  .fcard{background:var(--papel);padding:36px 30px;transition:background .2s ease;}
+  .fcard:hover{background:#fff;}
+  .fcard .mark{
+    width:34px;height:34px;border-radius:50%;margin-bottom:16px;position:relative;
+    background:radial-gradient(circle at 35% 30%, var(--marinara-luz), var(--marinara) 60%, transparent 75%);
+  }
+  .fcard .mark::after{content:"";position:absolute;inset:0;border-radius:50%;box-shadow:0 0 14px 2px rgba(179,39,45,0.3);}
+  .fcard h3{font-size:21px;margin-bottom:10px;color:var(--tinta);text-transform:none;}
+  .fcard p{font-size:14.5px;color:var(--humo);}
+  .fcard .who{display:block;margin-top:16px;font-size:12px;color:var(--marinara);font-weight:600;letter-spacing:0.02em;}
+
+  /* ---------- RECETA SECRETA ---------- */
+  .receta{background:var(--char);color:var(--papel);position:relative;}
+  .receta-grid{display:grid;grid-template-columns:1fr;gap:40px;align-items:center;}
+  @media(min-width:860px){.receta-grid{grid-template-columns:1fr 1fr;}}
+  .receta h2{font-size:clamp(30px,4.6vw,46px);color:var(--papel);}
+  .receta p.script{font-size:clamp(24px,3.4vw,32px);color:var(--parmesan);margin-top:20px;line-height:1.35;}
+  .receta p.detail{font-size:15.5px;color:rgba(251,243,230,0.68);margin-top:20px;max-width:460px;}
+  .oven-visual{
+    aspect-ratio:1/0.85;border-radius:4px;position:relative;overflow:hidden;
+    background:radial-gradient(circle at 50% 65%, #3a1a10, #16100b 75%);border:1px solid rgba(251,243,230,0.12);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .oven-visual .glow{
+    position:absolute;width:66%;height:36%;bottom:10%;
+    background:radial-gradient(ellipse, rgba(212,69,58,0.6), rgba(179,39,45,0.15) 60%, transparent 75%);
+    filter:blur(6px);animation:pulse 3.5s ease-in-out infinite;
+  }
+  @keyframes pulse{0%,100%{opacity:0.7;transform:scale(1);}50%{opacity:1;transform:scale(1.06);}}
+  .oven-visual span{position:relative;font-family:'Anton',sans-serif;color:var(--parmesan);font-size:2.6rem;text-align:center;}
+  .oven-visual small{position:relative;display:block;margin-top:6px;font-size:13px;color:rgba(251,243,230,0.6);letter-spacing:0.06em;text-transform:uppercase;}
+  @media(prefers-reduced-motion:reduce){.oven-visual .glow{animation:none;}}
+
+  /* ---------- MENU ---------- */
+  .menu-section{background:var(--char);color:var(--papel);position:relative;}
+  .menu-section .section-head h2{color:var(--papel);}
+  .menu-section .section-head p{color:rgba(251,243,230,0.7);}
+  .menu-list{border-top:1px solid rgba(251,243,230,0.16);position:relative;z-index:1;}
+  .mrow{display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:28px 0 28px 16px;border-bottom:1px solid rgba(251,243,230,0.16);border-left:3px solid transparent;transition:padding-left .2s ease, border-color .2s ease;}
+  .mrow:hover{padding-left:24px;border-color:var(--parmesan);}
+  .mrow.picante{border-left-color:rgba(179,39,45,0.45);}
+  .mrow.veggie{border-left-color:rgba(76,122,76,0.45);}
+  .mrow .mname{font-family:'Anton',sans-serif;font-size:clamp(19px,2.4vw,25px);text-transform:uppercase;}
+  .mrow .mprice{font-family:'Caveat',cursive;color:var(--parmesan);font-size:19px;margin-left:10px;font-weight:700;}
+  .mrow .mdesc{font-size:14px;color:rgba(251,243,230,0.65);margin-top:6px;max-width:520px;text-transform:none;}
+  .mrow .mtag{font-size:12px;letter-spacing:0.06em;text-transform:uppercase;color:var(--parmesan);white-space:nowrap;font-weight:600;}
+
+  .ticket-note{margin-top:44px;display:flex;gap:16px;align-items:flex-start;font-size:13.5px;color:rgba(251,243,230,0.6);border-left:2px solid var(--parmesan);padding-left:16px;position:relative;z-index:1;}
+
+  /* ---------- NOTAS (reviews) ---------- */
+  .notas-section{background:var(--crema-2);}
+  .rail-scroll{display:flex;gap:28px;overflow-x:auto;padding:24px 4px 32px;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch;}
+  .rail-scroll::-webkit-scrollbar{height:8px;}
+  .rail-scroll::-webkit-scrollbar-thumb{background:var(--marinara);border-radius:4px;}
+  .rail-scroll::-webkit-scrollbar-track{background:var(--linea);}
+
+  .nota{
+    scroll-snap-align:start;flex:0 0 260px;background:var(--papel);padding:22px 22px 18px;position:relative;
+    border-radius:2px;box-shadow:0 12px 26px rgba(28,23,18,0.1);border:1px solid #ecdfc2;border-top:3px solid var(--marinara);
+  }
+  .nota::before{
+    content:"";position:absolute;top:-1px;left:0;right:0;height:8px;
+    background-image:radial-gradient(circle, var(--crema-2) 4px, transparent 4.5px);
+    background-size:16px 16px;background-position:4px -4px;background-repeat:repeat-x;
+  }
+  .nota:nth-child(odd){transform:rotate(-0.6deg);}
+  .nota:nth-child(even){transform:rotate(0.5deg);}
+  .nota:hover{transform:rotate(0deg) translateY(-4px);box-shadow:0 18px 32px rgba(28,23,18,0.16);}
+  .nota .ticket-no{font-family:'Caveat',cursive;color:var(--marinara);font-size:15px;font-weight:700;}
+  .nota p.quote{font-size:15px;color:var(--tinta);min-height:96px;margin-top:10px;}
+  .nota .nt-foot{margin-top:16px;padding-top:12px;border-top:1px dashed #d9c79a;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--humo);}
+  .nota .stars{color:var(--parmesan);letter-spacing:1px;}
+  .rail-hint{font-size:11.5px;color:var(--humo);display:flex;align-items:center;gap:8px;margin-top:6px;font-style:italic;}
+
+  /* ---------- UBICACION ---------- */
+  .ubicacion{background:var(--papel);border-top:1px solid var(--linea);border-bottom:1px solid var(--linea);}
+  .ubic-grid{display:grid;grid-template-columns:1fr;gap:40px;}
+  @media(min-width:860px){.ubic-grid{grid-template-columns:1fr 1fr;align-items:center;}}
+  .ubic-card{background:var(--char);color:var(--papel);padding:42px;position:relative;border-radius:4px;}
+  .ubic-card::before{
+    content:"PIZZERÍA";position:absolute;top:-13px;left:34px;background:var(--marinara);color:var(--papel);
+    font-size:11px;letter-spacing:0.12em;font-weight:600;padding:5px 14px;border-radius:999px;
+  }
+  .ubic-card h3{font-size:26px;margin-top:12px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;text-transform:uppercase;}
+  .ubic-list{margin-top:24px;display:flex;flex-direction:column;gap:16px;}
+  .ubic-list div{display:flex;gap:14px;align-items:flex-start;}
+  .ubic-list .ic{width:24px;height:24px;flex:0 0 24px;border:1px solid var(--parmesan);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--parmesan);}
+  .ubic-list p{font-size:14.5px;color:rgba(251,243,230,0.72);}
+  .ubic-list strong{display:block;color:var(--papel);font-size:15px;margin-bottom:2px;font-weight:600;}
+  .ubic-note{margin-top:26px;font-size:12.5px;color:rgba(251,243,230,0.5);border-top:1px dashed rgba(251,243,230,0.2);padding-top:16px;}
+  .map-frame{width:100%;min-height:340px;border:1px solid var(--linea);border-radius:4px;overflow:hidden;}
+
+  .horario-list{list-style:none;display:flex;flex-direction:column;gap:4px;margin-top:2px;}
+  .horario-list li{display:flex;justify-content:space-between;gap:16px;font-size:14px;color:rgba(251,243,230,0.72);}
+  .horario-list li span:last-child{font-size:12.5px;color:var(--parmesan);font-weight:600;}
+  .horario-list li.closed span:last-child{color:var(--marinara-luz);}
+
+  .open-badge{
+    font-size:11.5px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;
+    padding:4px 12px;border-radius:999px;border:1px solid rgba(251,243,230,0.3);color:rgba(251,243,230,0.7);
+  }
+  .open-badge.open{color:#8FB86A;border-color:#8FB86A;}
+  .open-badge.closed{color:var(--marinara-luz);border-color:var(--marinara-luz);}
+
+  .call-float{
+    position:fixed;right:20px;bottom:20px;z-index:60;
+    width:56px;height:56px;border-radius:50%;background:var(--marinara);color:var(--papel);
+    display:flex;align-items:center;justify-content:center;box-shadow:0 8px 20px rgba(0,0,0,0.3);
+    transition:transform .18s ease;
+  }
+  .call-float:hover{transform:scale(1.08);}
+  .call-float:focus-visible{outline:3px solid var(--parmesan);outline-offset:3px;}
+  .call-float svg{width:24px;height:24px;fill:currentColor;}
+
+  /* ---------- FOOTER ---------- */
+  footer{background:var(--char);color:var(--papel);padding:84px 0 30px;}
+  .cta-final{text-align:center;padding-bottom:70px;border-bottom:1px solid rgba(251,243,230,0.14);margin-bottom:42px;}
+  .cta-final h2{font-size:clamp(30px,5.6vw,56px);color:var(--papel);}
+  .cta-final p{color:rgba(251,243,230,0.7);margin:18px auto 30px;max-width:480px;font-family:'Work Sans',sans-serif;text-transform:none;font-size:16px;}
+  .foot-grid{display:grid;grid-template-columns:1fr;gap:32px;}
+  @media(min-width:700px){.foot-grid{grid-template-columns:2fr 1fr 1fr;}}
+  .foot-grid h4{font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:var(--parmesan);margin-bottom:14px;font-weight:600;}
+  .foot-grid p, .foot-grid :is(a,button){font-size:14px;color:rgba(251,243,230,0.68);}
+  .foot-grid ul{list-style:none;display:flex;flex-direction:column;gap:10px;}
+  .foot-grid :is(a,button):hover{color:var(--papel);}
+  .foot-bottom{margin-top:50px;font-size:11.5px;color:rgba(251,243,230,0.4);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+
+  /* ---------- CHECKER DIVIDER ---------- */
+  .checker-divider{height:14px;width:100%;background-image:linear-gradient(45deg, var(--marinara) 25%, var(--crema) 25%, var(--crema) 50%, var(--marinara) 50%, var(--marinara) 75%, var(--crema) 75%, var(--crema) 100%);background-size:20px 20px;}
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <button class="logo" data-scroll="#top" type="button">THE DINER <span>pizza</span></button>
+    <div class="navlinks">
+      <button data-scroll="#fortalezas" type="button">Fortalezas</button>
+      <button data-scroll="#menu" type="button">Menú</button>
+      <button data-scroll="#notas" type="button">Reseñas</button>
+      <button data-scroll="#ubicacion" type="button">Ubicación</button>
+    </div>
+    <button data-scroll="#ubicacion" class="btn btn-primary nav-cta" type="button">Encuéntranos</button>
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="mobilePanel" aria-label="Abrir menú" type="button">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <div class="mobile-panel" id="mobilePanel">
+    <button data-scroll="#fortalezas" type="button">Fortalezas</button>
+    <button data-scroll="#menu" type="button">Menú</button>
+    <button data-scroll="#notas" type="button">Reseñas</button>
+    <button data-scroll="#ubicacion" type="button">Ubicación</button>
+    <button data-scroll="#ubicacion" class="btn btn-primary" type="button">Encuéntranos</button>
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="hero checker">
+    <div class="wrap hero-inner">
+      <span class="hero-tag">Pizza napolitana · El Encino</span>
+      <h1>PIZZA EN<br><em>DOS MINUTOS</em></h1>
+      <p class="lede">Masa de alta hidratación horneada al momento, ingredientes de calidad y el toque de Bruno, quien canta en italiano mientras la pizza sale del horno. Sí, en serio.</p>
+      <div class="hero-ctas">
+        <button data-scroll="#menu" class="btn btn-primary" type="button">Ver el menú</button>
+        <button data-scroll="#ubicacion" class="btn btn-ghost" type="button">Cómo llegar</button>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="wrap">
+        <div class="stat"><b>&lt;2 min</b><span>De horno a tu mesa</span></div>
+        <div class="stat"><b>100%</b><span>Masa de alta hidratación</span></div>
+        <div class="stat"><b>7</b><span>Pizzas en el menú</span></div>
+        <div class="stat"><b>1</b><span>Un solo horno, un solo Bruno</span></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="checker-divider" aria-hidden="true"></div>
+
+  <section id="fortalezas">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">Lo que más se repite</div>
+        <h2>Por qué la gente vuelve</h2>
+        <p>Directo de las reseñas de clientes: esto es lo que distingue a The Diner.</p>
+      </div>
+      <div class="fortalezas-grid reveal">
+        <div class="fcard">
+          <span class="mark"></span>
+          <h3>Masa de nivel italiano</h3>
+          <p>La masa es lo que más se elogia — a la altura de una pizzería italiana, con la conveniencia de comida rápida.</p>
+          <span class="who">— Pablo C.</span>
+        </div>
+        <div class="fcard">
+          <span class="mark"></span>
+          <h3>Ingredientes de calidad</h3>
+          <p>Se nota especialmente en el queso y las verduras — nada de atajos en lo que va encima.</p>
+          <span class="who">— Oscar A.</span>
+        </div>
+        <div class="fcard">
+          <span class="mark"></span>
+          <h3>Rapidísimo</h3>
+          <p>Las pizzas salen del horno en menos de 2 minutos, sin sacrificar sabor ni calidad.</p>
+          <span class="who">— Carlos Alberto P.</span>
+        </div>
+        <div class="fcard">
+          <span class="mark"></span>
+          <h3>Ambiente familiar</h3>
+          <p>Con juegos de mesa y estacionamiento gratuito — un lugar tranquilo para quedarse a cenar.</p>
+          <span class="who">— Marcelo D.</span>
+        </div>
+        <div class="fcard">
+          <span class="mark"></span>
+          <h3>Opciones vegetarianas</h3>
+          <p>La pizza Veggie es de las favoritas de quienes buscan algo sin carne, sin perder sabor.</p>
+          <span class="who">— Helena S.</span>
+        </div>
+        <div class="fcard">
+          <span class="mark"></span>
+          <h3>Las papas crisscut</h3>
+          <p>Con aderezo chipotle — un acompañante que casi nadie se salta al ordenar.</p>
+          <span class="who">— Greta O.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="receta">
+    <div class="wrap receta-grid">
+      <div class="reveal">
+        <div class="eyebrow" style="color:var(--parmesan);">
+          <span style="width:24px;height:1px;background:var(--parmesan);display:inline-block;"></span>
+          El ingrediente secreto
+        </div>
+        <h2>No es solo la masa</h2>
+        <p class="script">"El chef canta en italiano mientras cocina — y le da más sabor."</p>
+        <p class="detail">Así lo describen quienes ya visitaron The Diner: Bruno hornea cada pizza mientras canta, y de algún modo, se nota. Es el tipo de detalle que no se puede replicar en cadena — solo aquí, con un solo chef y una sola forma de hacer las cosas.</p>
+      </div>
+      <div class="oven-visual reveal">
+        <div class="glow"></div>
+        <div>
+          <span>🎶</span>
+          <small>Receta de familia + banda sonora italiana</small>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="menu" class="menu-section checker">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">El menú</div>
+        <h2>Pizzas de masa de alta hidratación</h2>
+        <p>Siete pizzas de 14", horneadas al momento — de la Margherita clásica a la Carnívora sin límites.</p>
+      </div>
+      <div class="menu-list reveal">
+        <div class="mrow picante">
+          <div>
+            <div class="mname">Pizza Carnívora <span class="mprice">$389</span></div>
+            <div class="mdesc">Pepperoni, salami, tocino y salchicha sobre mozzarella fresca y seca. La más pedida del menú.</div>
+          </div>
+          <div class="mtag">Favorita</div>
+        </div>
+        <div class="mrow">
+          <div>
+            <div class="mname">Pizza la Serrano <span class="mprice">$349</span></div>
+            <div class="mdesc">Base de tomate, mozzarella fresca y seca, jamón serrano.</div>
+          </div>
+          <div class="mtag">Top ventas</div>
+        </div>
+        <div class="mrow picante">
+          <div>
+            <div class="mname">Pizza Mixta <span class="mprice">$359</span></div>
+            <div class="mdesc">Pepperoni, cebolla, aceitunas, champiñones y pimientos sobre mozzarella rallada y fresca.</div>
+          </div>
+          <div class="mtag">Picante</div>
+        </div>
+        <div class="mrow veggie">
+          <div>
+            <div class="mname">Pizza Veggie <span class="mprice">$350</span></div>
+            <div class="mdesc">Champiñones, aceitunas, alcachofa, tomates cherries y espinaca.</div>
+          </div>
+          <div class="mtag">Vegetariana</div>
+        </div>
+        <div class="mrow picante">
+          <div>
+            <div class="mname">Pizza de Pepperoni <span class="mprice">$300</span></div>
+            <div class="mdesc">La clásica: salsa de tomate, mozzarella seca y fresca, pepperoni.</div>
+          </div>
+          <div class="mtag">Clásica</div>
+        </div>
+        <div class="mrow">
+          <div>
+            <div class="mname">Pizza Margherita <span class="mprice">$298</span></div>
+            <div class="mdesc">Tomate, mozzarella fresca y seca, especias. La base de todo lo demás.</div>
+          </div>
+          <div class="mtag">Sencilla</div>
+        </div>
+        <div class="mrow">
+          <div>
+            <div class="mname">Arma tu Pizza <span class="mprice">$300</span></div>
+            <div class="mdesc">Base Margherita de 14" para armar a tu gusto, con los ingredientes que prefieras.</div>
+          </div>
+          <div class="mtag">A tu manera</div>
+        </div>
+        <div class="mrow">
+          <div>
+            <div class="mname">Orden de papas crisscut <span class="mprice">$150</span></div>
+            <div class="mdesc">Con aderezo chipotle — el acompañante que más se repite en las reseñas.</div>
+          </div>
+          <div class="mtag">Guarnición</div>
+        </div>
+      </div>
+      <div class="ticket-note">
+        <span>*</span>
+        <p>Precios de referencia en pesos mexicanos, según menú de entrega. Confirma precios vigentes directo en el negocio.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="notas" class="notas-section">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">Directo de las mesas</div>
+        <h2>Notas de quienes ya nos visitaron</h2>
+        <p>Reseñas reales de clientes locales de Google.</p>
+      </div>
+    </div>
+    <div class="wrap">
+      <div class="rail-scroll reveal">
+        <div class="nota">
+          <span class="ticket-no">Orden Nº 01</span>
+          <p class="quote">Sin duda, las mejores pizzas, incluso comparadas con las italianas que he probado. Bruno tiene un don para las masas.</p>
+          <div class="nt-foot"><span>Greta O.</span><span class="stars">★★★★★</span></div>
+        </div>
+        <div class="nota">
+          <span class="ticket-no">Orden Nº 02</span>
+          <p class="quote">La masa con un horneado a la medida — se nota la calidad especialmente en el queso y las verduras.</p>
+          <div class="nt-foot"><span>Oscar A.</span><span class="stars">★★★★★</span></div>
+        </div>
+        <div class="nota">
+          <span class="ticket-no">Orden Nº 03</span>
+          <p class="quote">Es una pizza tipo de restaurante italiano, pero con la conveniencia de comida rápida.</p>
+          <div class="nt-foot"><span>Pablo C.</span><span class="stars">★★★★★</span></div>
+        </div>
+        <div class="nota">
+          <span class="ticket-no">Orden Nº 04</span>
+          <p class="quote">Servicio excelente, todos muy amables, y las pizzas salen en menos de 2 minutos.</p>
+          <div class="nt-foot"><span>Carlos Alberto P.</span><span class="stars">★★★★★</span></div>
+        </div>
+        <div class="nota">
+          <span class="ticket-no">Orden Nº 05</span>
+          <p class="quote">El chef canta canciones en italiano mientras cocina, y de algún modo le da más sabor. 10 de 10.</p>
+          <div class="nt-foot"><span>Adrian D.A.</span><span class="stars">★★★★★</span></div>
+        </div>
+        <div class="nota">
+          <span class="ticket-no">Orden Nº 06</span>
+          <p class="quote">Buen trato, buen precio, mesas para comer ahí y estacionamiento gratuito. Volveré a ir.</p>
+          <div class="nt-foot"><span>Mario V.</span><span class="stars">★★★★★</span></div>
+        </div>
+      </div>
+      <div class="wrap"><div class="rail-hint">← desliza para ver más notas →</div></div>
+    </div>
+  </section>
+
+  <section id="ubicacion" class="ubicacion">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">Encuéntranos</div>
+        <h2>El Encino, Monterrey</h2>
+      </div>
+      <div class="ubic-grid reveal">
+        <div class="ubic-card">
+          <h3>The Diner Pizza <span id="openBadge" class="open-badge">·</span></h3>
+          <div class="ubic-list">
+            <div>
+              <span class="ic">◎</span>
+              <p><strong>Dirección</strong>Plaza Remax, Carretera Nacional, El Encino, 64987, Monterrey, N.L.</p>
+            </div>
+            <div>
+              <div style="width:100%;">
+                <strong>Horario</strong>
+                <ul class="horario-list">
+                  <li class="closed"><span>Lunes</span><span>Cerrado</span></li>
+                  <li class="closed"><span>Martes</span><span>Cerrado</span></li>
+                  <li><span>Miércoles</span><span>5 – 10 pm</span></li>
+                  <li><span>Jueves</span><span>5 – 10 pm</span></li>
+                  <li><span>Viernes</span><span>5 – 11 pm</span></li>
+                  <li><span>Sábado</span><span>5 – 11 pm</span></li>
+                  <li><span>Domingo</span><span>5 – 10 pm</span></li>
+                </ul>
+              </div>
+            </div>
+            <div>
+              <span class="ic">🚗</span>
+              <p><strong>Servicio</strong>Consumo en el lugar (con mesas y juegos de mesa) y para llevar. Estacionamiento gratuito.</p>
+            </div>
+            <div>
+              <span class="ic">📞</span>
+              <p><strong>Reservas y pedidos</strong><a href="tel:+528112113183" style="color:var(--parmesan);text-decoration:underline;">81 1211 3183</a></p>
+            </div>
+            <div>
+              <span class="ic">◐</span>
+              <p><strong>Instagram</strong><a href="https://www.instagram.com/thediner.mty?igsh=MXY5cnRkazQ0cGN3cg==" target="_blank" rel="noopener" style="color:var(--parmesan);text-decoration:underline;">@thediner.mty</a></p>
+            </div>
+            <div>
+              <span class="ic">🍕</span>
+              <p><strong>Recomendación</strong>Pizza Carnívora + orden de papas crisscut con chipotle</p>
+            </div>
+          </div>
+          <a href="https://maps.google.com/maps/place//data=!4m2!3m1!1s0x8662c78ef3b9eb5f:0xecc2eae6268d5da?entry=s&sa=X&ved=2ahUKEwi0guTfireVAxU_kWoFHVI9E0AQ4kB6BAgEEAA&hl=es" target="_blank" rel="noopener" class="btn btn-primary" style="margin-top:26px;">Abrir en Google Maps</a>
+          <p class="ubic-note">El horario puede variar por temporada — confirma en Maps o redes antes de tu visita.</p>
+        </div>
+        <div class="map-frame">
+          <iframe
+            title="Ubicación The Diner Pizza, El Encino, Monterrey"
+            src="https://www.google.com/maps?q=Plaza+Remax+Carretera+Nacional+El+Encino+Monterrey+N.L.&output=embed"
+            width="100%" height="340" style="border:0;display:block;"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<a class="call-float" href="tel:+528112113183" aria-label="Llamar a The Diner Pizza">
+  <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.2 2.4 3.2 4.4 5.6 5.6l1.9-1.9c.2-.2.6-.3.9-.2 1 .3 2 .5 3.1.5.5 0 .9.4.9.9V19c0 .5-.4.9-.9.9C10.5 19.9 4.1 13.5 4.1 5.9c0-.5.4-.9.9-.9h3.3c.5 0 .9.4.9.9 0 1.1.2 2.1.5 3.1.1.3 0 .7-.2.9L6.6 10.8Z"/></svg>
+</a>
+
+<footer>
+  <div class="wrap">
+    <div class="cta-final reveal">
+      <h2>Tu pizza está a dos minutos</h2>
+      <p>Masa de alta hidratación, ingredientes frescos y la banda sonora italiana de Bruno — te esperamos en El Encino.</p>
+      <button data-scroll="#ubicacion" class="btn btn-primary" type="button">Cómo llegar</button>
+    </div>
+    <div class="foot-grid">
+      <div>
+        <h4>The Diner Pizza</h4>
+        <p>Pizzería de pizza napolitana en Monterrey: masa de alta hidratación, ingredientes de calidad y horneado en menos de 2 minutos.</p>
+      </div>
+      <div>
+        <h4>Visítanos</h4>
+        <ul>
+          <li><button data-scroll="#ubicacion" type="button">El Encino, Monterrey</button></li>
+          <li><button data-scroll="#menu" type="button">Ver menú</button></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contacto</h4>
+        <ul>
+          <li><a href="tel:+528112113183">81 1211 3183</a></li>
+          <li><a href="https://www.instagram.com/thediner.mty?igsh=MXY5cnRkazQ0cGN3cg==" target="_blank" rel="noopener">Instagram</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© <span id="year"></span> The Diner Pizza</span>
+      <span>Masa fermentada, horno caliente y un poco de ópera italiana.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  const navToggle = document.getElementById('navToggle');
+  const mobilePanel = document.getElementById('mobilePanel');
+  navToggle.addEventListener('click', ()=>{
+    const open = mobilePanel.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  mobilePanel.querySelectorAll('button').forEach(a=>{
+    a.addEventListener('click', ()=>{
+      mobilePanel.classList.remove('open');
+      navToggle.setAttribute('aria-expanded','false');
+    });
+  });
+  document.addEventListener('click', (e)=>{
+    if(mobilePanel.classList.contains('open') && !mobilePanel.contains(e.target) && !navToggle.contains(e.target)){
+      mobilePanel.classList.remove('open');
+      navToggle.setAttribute('aria-expanded','false');
+    }
+  });
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll('[data-scroll]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const id = btn.getAttribute('data-scroll');
+      const target = document.querySelector(id);
+      if(!target) return;
+      target.scrollIntoView({behavior: reduceMotion ? 'auto' : 'smooth', block:'start'});
+    });
+  });
+
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  },{threshold:0.12});
+  reveals.forEach(el=>io.observe(el));
+
+  const rail = document.querySelector('.rail-scroll');
+  if(rail){
+    let isDown = false, startX, scrollLeft;
+    rail.addEventListener('mousedown', (e)=>{
+      isDown = true; rail.style.cursor = 'grabbing';
+      startX = e.pageX - rail.offsetLeft; scrollLeft = rail.scrollLeft;
+    });
+    ['mouseleave','mouseup'].forEach(evt=>rail.addEventListener(evt, ()=>{
+      isDown = false; rail.style.cursor = 'grab';
+    }));
+    rail.addEventListener('mousemove', (e)=>{
+      if(!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - rail.offsetLeft;
+      rail.scrollLeft = scrollLeft - (x - startX) * 1.2;
+    });
+    rail.style.cursor = 'grab';
+  }
+
+  // Open now / closed badge, based on real weekly hours (America/Monterrey)
+  (function(){
+    const badge = document.getElementById('openBadge');
+    if(!badge) return;
+    // 0=Sun 1=Mon 2=Tue 3=Wed 4=Thu 5=Fri 6=Sat
+    const schedule = {0:[17,22], 1:null, 2:null, 3:[17,22], 4:[17,22], 5:[17,23], 6:[17,23]};
+    const now = new Date(new Date().toLocaleString('en-US',{timeZone:'America/Monterrey'}));
+    const day = now.getDay();
+    const hours = now.getHours() + now.getMinutes()/60;
+    const todaySchedule = schedule[day];
+    const open = todaySchedule && hours >= todaySchedule[0] && hours < todaySchedule[1];
+    badge.textContent = open ? 'Abierto ahora' : 'Cerrado ahora';
+    badge.classList.add(open ? 'open' : 'closed');
+  })();
+</script>
+
+</body>
+</html>
